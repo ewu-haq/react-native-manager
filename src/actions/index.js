@@ -5,7 +5,10 @@ import {
     LOGIN_USER_FAIL,
     LOGGGIN_IN
 } from '../values/types';
+import { EMPLOYEE_LIST_SCREEN } from '../values/screens';
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 
 
 export const emailChanged = (text) => {
@@ -22,28 +25,45 @@ export const passwordChanged = (text) => {
     };
 };
 
-export const loginUser = ({email, password}) => {
+export const loginUser = ({email, password, navigation}) => {
     return (dispatch) => {
-        dispatch({type: LOGGGIN_IN})
+        loginInProgress(dispatch);
         firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(user => loginUserAccess(dispatch, user))
+        .then(user => loginUserAccess(dispatch, user, navigation))
         .catch(() => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => loginUserAccess(dispatch, user))
+            .then(user => loginUserAccess(dispatch, user, navigation))
             .catch(() => loginUserFailed(dispatch))
         });
     };
 };
 
+const loginInProgress = (dispatch) => {
+    console.log('logged in in progress');
+    dispatch({
+        type: LOGGGIN_IN
+    });
+}
+
 const loginUserFailed = (dispatch) => {
+    console.log('logged in failed');
     dispatch({
         type: LOGIN_USER_FAIL
     });
 }
 
-const loginUserAccess = (dispatch, user) => {
+const loginUserAccess = (dispatch, user, navigation) => {
+    console.log('logged in success');
     dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: user
     });
+    
+    const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+        NavigationActions.navigate({ routeName: EMPLOYEE_LIST_SCREEN }),
+        ],
+    });
+    navigation.dispatch(resetAction);
 }

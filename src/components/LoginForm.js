@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: 'Log in',
+      });
 
     onEmailChange(text) {
         this.props.emailChanged(text);
@@ -15,12 +18,12 @@ class LoginForm extends Component {
     }
 
     onButtonPress() {
-        const {email, password} = this.props;
-        this.props.loginUser({email, passoword})
+        const {email, password, navigation } = this.props;
+        this.props.loginUser({email, password, navigation})
     }
 
     renderError() {
-        if(this.props.error) {
+        if(!this.props.error || 0 === this.props.error.length) {
             return (
                 <View style={styles.errorViewStyle}>
                     <Text style={styles.errorTextStyle}>
@@ -36,46 +39,47 @@ class LoginForm extends Component {
             return <Spinner size='large'/>
         }
 
-        return 
+        return (
             <Button onPress={this.onButtonPress.bind(this)}>
                 Login
             </Button>
+        );
     }
 
     render() {
         return (
             <Card>
-                <CardSection>
-                    <Input
-                        label='Email'
-                        placeholder='a@mail.com'
-                        onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
-                    />
-                </CardSection>
-                <CardSection>
-                    <Input
-                        secureTextEntry
-                        label='Password'
-                        placeholder='password'
-                        onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
-                    />
-                </CardSection>
+            <CardSection>
+                <Input
+                    label='Email'
+                    placeholder='a@mail.com'
+                    onChangeText={this.onEmailChange.bind(this)}
+                    value={this.props.email}
+                />
+            </CardSection>
+            <CardSection>
+                <Input
+                    secureTextEntry
+                    label='Password'
+                    placeholder='password'
+                    onChangeText={this.onPasswordChange.bind(this)}
+                    value={this.props.password}
+                />
+            </CardSection>
 
-                {this.renderError()}
+            {this.renderError()}
 
-                <CardSection>
-                    {this.renderButton()}
-                </CardSection>
-            </Card>
+            <CardSection>
+                {this.renderButton()}
+            </CardSection>
+        </Card>
         );
     }
 }
 
 const styles = {
     errorViewStyle: {
-        backgrounColor: 'white'
+        backgroundColor: 'white'
     },
     errorTextStyle: {
         fontSize: 20,
