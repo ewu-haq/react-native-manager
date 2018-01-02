@@ -23,7 +23,10 @@ class LoginForm extends Component {
     }
 
     renderError() {
-        if(!this.props.error || 0 === this.props.error.length) {
+        console.log('error here');
+        console.log(this.props.error);
+        if(!this.props.error || 0 !== this.props.error.length) {
+            console.log('rendering here');
             return (
                 <View style={styles.errorViewStyle}>
                     <Text style={styles.errorTextStyle}>

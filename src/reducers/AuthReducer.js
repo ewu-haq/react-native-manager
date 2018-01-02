@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false
             }
         case LOGGGIN_IN:
-            return {...state, loading: true, error: ''}
+            return {...state, loading: true}
         default:
             return state;
     }
