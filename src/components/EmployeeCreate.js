@@ -33,7 +33,7 @@ class EmployeeCreate extends Component {
                 </CardSection>
 
                 <CardSection>
-                    <Picker
+                    <Picker style={{flex: 1}}
                         selectedValue={this.props.shift}
                         onValueChange={value => this.props.employeeUpdate({prop: 'shift', value})}
                     >

@@ -9,6 +9,7 @@ const initial_state= {
 };
 
 export default (state = initial_state, action) => {
+    console.log(state);
     switch(action.type) {
         case EMPLOYEE_UPDATE:
             return {...state, [action.payload.prop]: action.payload.value}
