@@ -1,28 +1,53 @@
-import React, {Component} from 'react';
-import { View, Text } from 'react-native';
-import { Button } from './common';
-import { ADD_EMPLOYEE_SCREEN } from '../values/screens';
+import _ from "lodash";
+import React, { Component } from "react";
+import { ListView, View, Text } from "react-native";
+import { connect } from "react-redux";
+import { Button } from "./common";
+import { ADD_EMPLOYEE_SCREEN } from "../values/screens";
+import { employeesFetch } from "../actions";
 
-export default class EmployeeList extends Component {
-    static navigationOptions = ({ navigation, screenProps }) => ({
-        title: 'Employee',
-        headerRight:
-            (<Button onPress={() => navigation.navigate(ADD_EMPLOYEE_SCREEN)}>
-                <Text> Add </Text>
-            </Button>)
-      });
+class EmployeeList extends Component {
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: "Employee",
+    headerRight: (
+      <Button onPress={() => navigation.navigate(ADD_EMPLOYEE_SCREEN)}>
+        <Text> Add </Text>
+      </Button>
+    )
+  });
 
-    
-      
+  componentWillMount() {
+    this.props.employeesFetch();
+    this.createDateSource(this.props);
+  }
 
-    render() {
-        return (
-            <View>
-                <Text> Hello </Text>
-            </View>
-        );
-    }
+  createDateSource({ employees }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.dataSource = ds.cloneWithRows(employees);
+    console.log(this.dataSource);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createDateSource(nextProps);
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> Hello </Text>
+      </View>
+    );
+  }
 }
 
+const mapStateToProps = state => {
+  const employees = _.map(state.employees, (val, uid) => {
+    return { ...val, uid };
+  });
+  return { employees };
+};
 
-    
+export default connect(mapStateToProps, { employeesFetch })(EmployeeList);

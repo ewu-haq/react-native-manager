@@ -11,12 +11,17 @@ class EmployeeCreate extends Component {
   });
 
   onButtonPress() {
-    const { name, phone, shift } = this.props;
-    this.props.employeeCreate({ name, phone, shift: shift || "Monday" });
+    const { name, phone, shift, navigation } = this.props;
+    this.props.employeeCreate({
+      name,
+      phone,
+      shift: shift || "Monday",
+      navigation
+    });
   }
 
   render() {
-    const { name, phone } = this.props;
+    const { name, phone, shift } = this.props;
     return (
       <Card>
         <CardSection>
@@ -43,8 +48,7 @@ class EmployeeCreate extends Component {
         <CardSection style={{ flexDirection: "column" }}>
           <Text style={styles.pickerLabelStyle}>Shift</Text>
           <Picker
-            style={{ flex: 1 }}
-            selectedValue={this.props.shift}
+            selectedValue={shift}
             onValueChange={value =>
               this.props.employeeUpdate({ prop: "shift", value })
             }

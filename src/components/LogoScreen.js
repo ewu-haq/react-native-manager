@@ -1,30 +1,23 @@
-import React, { Component } from 'react';
-import { View,Text } from 'react-native';
-import { LOG_IN_SCREEN } from '../values/screens';
-import { NavigationActions } from 'react-navigation';
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+import { LOG_IN_SCREEN } from "../values/screens";
+import { PerformResetNavigation } from "../helpers";
 
 class LogoScreen extends Component {
-    state = { 
+  state = {};
 
-    }
+  componentDidMount() {
+    console.log(this.props.navigation);
+    PerformResetNavigation(this.props.navigation, LOG_IN_SCREEN);
+  }
 
-    componentDidMount() {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-            NavigationActions.navigate({ routeName: LOG_IN_SCREEN }),
-            ],
-        });
-        this.props.navigation.dispatch(resetAction);
-    }
-
-    render() {
-        return (
-            <View>
-                <Text> logo here </Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View>
+        <Text> logo here </Text>
+      </View>
+    );
+  }
 }
 
 export default LogoScreen;
