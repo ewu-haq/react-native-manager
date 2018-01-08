@@ -11,12 +11,15 @@ export const PerformResetNavigation = (navigation, screen_name) => {
 export const PerformStackNavigation = (
   navigation,
   screen_name,
-  extraParams
+  extraParams = {}
 ) => {
+  console.log("navigate here");
+  console.log(navigation);
+  console.log(extraParams);
+  console.log(screen_name);
   const navigateAction = NavigationActions.navigate({
     params: extraParams,
     action: NavigationActions.navigate({ routeName: screen_name })
   });
-
-  this.props.navigation.dispatch(navigateAction);
+  navigation.dispatch(navigateAction);
 };

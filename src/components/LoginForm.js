@@ -10,11 +10,11 @@ class LoginForm extends Component {
   });
 
   onEmailChange(text) {
-    this.props.emailChanged(text);
+    this.props.emailChanged("a@m.com"); // For testing only
   }
 
   onPasswordChange(text) {
-    this.props.passwordChanged(text);
+    this.props.passwordChanged("123456"); // for testing only
   }
 
   onButtonPress() {

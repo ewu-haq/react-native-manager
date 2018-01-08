@@ -6,6 +6,7 @@ import { Button } from "./common";
 import { ADD_EMPLOYEE_SCREEN } from "../values/screens";
 import { employeesFetch } from "../actions";
 import ListItem from "./ListItem";
+import { PerformStackNavigation } from "../helpers";
 
 class EmployeeList extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -35,14 +36,27 @@ class EmployeeList extends Component {
     this.createDateSource(nextProps);
   }
 
-  renderRow(employee) {}
+  onRowPress(employee, navigation) {
+    PerformStackNavigation(navigation, ADD_EMPLOYEE_SCREEN, {
+      employee: employee
+    });
+  }
+
+  renderRow(employee) {
+    return (
+      <ListItem
+        employee={employee}
+        onRowPress={this.onRowPress(employee, this.props.navigation)}
+      />
+    );
+  }
 
   render() {
     return (
       <ListView
         enableEmptySections
         dataSource={this.dataSource}
-        renderRow={this.renderRow}
+        renderRow={this.renderRow.bind(this)}
       />
     );
   }
