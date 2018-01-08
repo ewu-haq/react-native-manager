@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Button } from "./common";
 import { ADD_EMPLOYEE_SCREEN } from "../values/screens";
 import { employeesFetch } from "../actions";
+import ListItem from "./ListItem";
 
 class EmployeeList extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -34,11 +35,15 @@ class EmployeeList extends Component {
     this.createDateSource(nextProps);
   }
 
+  renderRow(employee) {}
+
   render() {
     return (
-      <View>
-        <Text> Hello </Text>
-      </View>
+      <ListView
+        enableEmptySections
+        dataSource={this.dataSource}
+        renderRow={this.renderRow}
+      />
     );
   }
 }

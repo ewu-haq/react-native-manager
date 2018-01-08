@@ -2,27 +2,25 @@ import React, { Component } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
 import { CardSection } from "./common";
 import * as actions from "../actions"; // give me everythin as actions
+import { PerformStackNavigation } from "../helpers";
+import { ADD_EMPLOYEE_SCREEN } from "../values/screens";
 import { connect } from "react-redux";
 
 class ListItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  renderDescription() {
-    if (this.props.expanded) {
-      return <Text> {this.props.library.description} </Text>;
-    }
+  onRowPress() {
+    const { navigation, employee } = this.props;
+    PerformStackNavigation(navigation, ADD_EMPLOYEE_SCREEN, {
+      employee: employee
+    });
   }
 
   render() {
-    const { id, title } = this.props.library;
-
+    const { uid, name } = this.props.employee;
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.selectLibrary(id)}>
+      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
-            <Text style={styles.titleStyle}>{title}</Text>
+            <Text style={styles.titleStyle}>{name}</Text>
           </CardSection>
           {this.renderDescription()}
         </View>
@@ -43,4 +41,4 @@ const mapStateToProps = (state, ownProps) => {
   return { expanded: expanded };
 };
 
-export default connect(mapStateToProps, actions)(ListItem);
+export default connect(null, actions)(ListItem);
