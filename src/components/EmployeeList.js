@@ -29,26 +29,14 @@ class EmployeeList extends Component {
     });
 
     this.dataSource = ds.cloneWithRows(employees);
-    console.log(this.dataSource);
   }
 
   componentWillReceiveProps(nextProps) {
     this.createDateSource(nextProps);
   }
 
-  onRowPress(employee, navigation) {
-    PerformStackNavigation(navigation, ADD_EMPLOYEE_SCREEN, {
-      employee: employee
-    });
-  }
-
   renderRow(employee) {
-    return (
-      <ListItem
-        employee={employee}
-        onRowPress={this.onRowPress(employee, this.props.navigation)}
-      />
-    );
+    return <ListItem employee={employee} navigation={this.props.navigation} />;
   }
 
   render() {

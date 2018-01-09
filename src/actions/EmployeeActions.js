@@ -1,11 +1,21 @@
 import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from "../values/types";
 import firebase from "firebase";
-import { EMPLOYEE_LIST_SCREEN } from "../values/screens";
+import { EMPLOYEE_LIST_SCREEN, ADD_EMPLOYEE_SCREEN } from "../values/screens";
 import {
   EMPLOYEE_USER_CREATING,
-  EMPLOYEE_FETCH_SUCCESS
+  EMPLOYEE_FETCH_SUCCESS,
+  EMPLOYEE_ITEM_CLICK
 } from "../values/types";
-import { PerformResetNavigation } from "../helpers";
+import { PerformResetNavigation, PerformStackNavigation } from "../helpers";
+
+export const onRowClickEvent = ({ navigation, employee }) => {
+  PerformStackNavigation(navigation, ADD_EMPLOYEE_SCREEN, {
+    employee: employee
+  });
+  return {
+    type: EMPLOYEE_ITEM_CLICK
+  };
+};
 
 export const employeesFetch = () => {
   return dispatch => {

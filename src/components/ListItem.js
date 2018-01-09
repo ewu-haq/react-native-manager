@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
 import { CardSection } from "./common";
-import * as actions from "../actions"; // give me everythin as actions
-import { ADD_EMPLOYEE_SCREEN } from "../values/screens";
+import { onRowClickEvent } from "../actions";
 import { connect } from "react-redux";
 
 class ListItem extends Component {
   render() {
-    const { uid, name } = this.props.employee;
+    const { navigation, employee } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={this.props.onRowPress}>
+      <TouchableWithoutFeedback
+        onPress={() => this.props.onRowClickEvent({ navigation, employee })}
+      >
         <View>
           <CardSection>
-            <Text style={styles.titleStyle}>{name}</Text>
+            <Text style={styles.titleStyle}>{employee.name}</Text>
           </CardSection>
         </View>
       </TouchableWithoutFeedback>
@@ -27,4 +28,8 @@ const styles = {
   }
 };
 
-export default connect(null, actions)(ListItem);
+const mapStateToProps = state => {
+  return { ...state };
+};
+
+export default connect(mapStateToProps, { onRowClickEvent })(ListItem);

@@ -10,6 +10,27 @@ class EmployeeCreate extends Component {
     title: "Add new employee"
   });
 
+  updateComponentValues(employee) {
+    this.props.employeeUpdate({ prop: "name", value: employee.name });
+    this.props.employeeUpdate({ prop: "phone", value: employee.phone });
+    this.props.employeeUpdate({ prop: "shift", value: employee.shift });
+  }
+
+  componentWillMount() {
+    const { params } = this.props.navigation.state;
+    if (params !== undefined && params !== null) {
+      const { employee } = this.props.navigation.state.params;
+      this.updateComponentValues(employee);
+    } else {
+      const emptyEmployee = {
+        name: "",
+        phone: "",
+        shift: ""
+      };
+      this.updateComponentValues(emptyEmployee);
+    }
+  }
+
   onButtonPress() {
     const { name, phone, shift, navigation } = this.props;
     this.props.employeeCreate({

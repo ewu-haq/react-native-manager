@@ -13,11 +13,8 @@ export const PerformStackNavigation = (
   screen_name,
   extraParams = {}
 ) => {
-  console.log("navigate here");
-  console.log(navigation);
-  console.log(extraParams);
-  console.log(screen_name);
   const navigateAction = NavigationActions.navigate({
+    routeName: screen_name,
     params: extraParams,
     action: NavigationActions.navigate({ routeName: screen_name })
   });
