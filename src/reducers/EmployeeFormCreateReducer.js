@@ -12,7 +12,6 @@ const initial_state = {
 };
 
 export default (state = initial_state, action) => {
-  console.log(state);
   switch (action.type) {
     case EMPLOYEE_USER_CREATING:
       return { ...state, create_loading: true };

@@ -42,21 +42,18 @@ export const loginUser = ({ email, password, navigation }) => {
 };
 
 const loginInProgress = dispatch => {
-  console.log("logged in in progress");
   dispatch({
     type: LOGGGIN_IN
   });
 };
 
 const loginUserFailed = dispatch => {
-  console.log("logged in failed");
   dispatch({
     type: LOGIN_USER_FAIL
   });
 };
 
 const loginUserAccess = (dispatch, user, navigation) => {
-  console.log("logged in success");
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user

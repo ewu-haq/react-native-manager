@@ -7,7 +7,6 @@ class LogoScreen extends Component {
   state = {};
 
   componentDidMount() {
-    console.log(this.props.navigation);
     PerformResetNavigation(this.props.navigation, LOG_IN_SCREEN);
   }
 
